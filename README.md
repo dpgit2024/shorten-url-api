@@ -2,6 +2,7 @@
 
 Shorten URL Backend project is developed for the DeepOrigin Senior Software Engineer interview.
 This project is developed using Node.js, TypeScript.js, Express.js, and Jest for unit testing.
+This project uses node version 20.11.1
 Steps to locally run this server as follows:
 1. Add a .env file using .env.example
 2. install nvm
