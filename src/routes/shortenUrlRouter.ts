@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { shortenUrlController } from '../controllers/shortenUrlController'
-import { shortenUrlScema } from '../schemas/shortenUrlSchema'
+import { shortenUrlScema } from '../validators/shortenUrlValidator'
 import { validate } from 'express-validation'
 
 const router = Router()
