@@ -8,5 +8,11 @@ export const createUrlRecord = async function(record: IUrlRecord) {
 
 export const getUrlRecord = async function(attribute = 'miniUrl', value: string) {
     
-    return await MiniUrlModel.findOne({[attribute]: value})
+    const record = await MiniUrlModel.findOne({[attribute]: value})
+    if(record) {
+        record.hits += 1
+        await record.save()
+    }
+    
+    return record
 }
