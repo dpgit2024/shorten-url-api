@@ -3,8 +3,10 @@ import healthRouter from './routes/health'
 import shortenUrlRouter from './routes/shortenUrl'
 import { logger, requestLoggerMiddleware } from './clients/loggerClient'
 import { ValidationError } from 'express-validation'
+import helmet from 'helmet'
 
 const app = express()
+app.use(helmet())
 app.use(express.json())
 app.use(requestLoggerMiddleware)
 
