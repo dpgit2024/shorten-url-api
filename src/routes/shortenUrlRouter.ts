@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { shortenUrlController } from '../controllers/shortenUrl'
+import { shortenUrlController } from '../controllers/shortenUrlController'
 import { shortenUrlScema } from '../schemas/shortenUrlSchema'
 import { validate } from 'express-validation'
 

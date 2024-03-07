@@ -1,6 +1,6 @@
 import express,  { NextFunction, Request, Response }  from 'express'
-import healthRouter from './routes/health'
-import shortenUrlRouter from './routes/shortenUrl'
+import healthRouter from './routes/healthRouter'
+import shortenUrlRouter from './routes/shortenUrlRouter'
 import { logger, requestLoggerMiddleware } from './clients/loggerClient'
 import { ValidationError } from 'express-validation'
 import helmet from 'helmet'
