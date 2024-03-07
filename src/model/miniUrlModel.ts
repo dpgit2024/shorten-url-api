@@ -1,8 +1,19 @@
-import { Schema } from 'mongoose'
+import { model, Schema }from 'mongoose'
 
-export const miniUrlSchema = new Schema({
+const miniUrlSchema = new Schema({
     originalUrl: String,
-    miniUrl: String,
+    miniUrl: {
+        type: String,
+        index: true
+    },
     hits: Number,
-    createdBy: String
+    createdBy: { 
+        type: String,
+        index: true
+    }
 }, { timestamps: true })
+
+//In production we do manual indexing
+miniUrlSchema.index({ createdBy: 1, miniUrl: 1})
+
+export const miniUrlModel = model('urls', miniUrlSchema)
