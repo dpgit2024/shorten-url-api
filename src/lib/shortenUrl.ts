@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
-export const shortenUrl = function(originalUrl: string): string {
+export const shortenUrl = function(originalUrl: string, protocol: string, host: string): string {
     const id =  nanoid(5)
-    return id
+    
+    return `${protocol}://${host}/${id}`
 }
