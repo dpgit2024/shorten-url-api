@@ -5,17 +5,18 @@ import { logger, requestLoggerMiddleware } from './clients/loggerClient'
 import { ValidationError } from 'express-validation'
 import helmet from 'helmet'
 import { rateLimit } from 'express-rate-limit'
+import { config } from '../config/config'
 
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	windowMs: config.RATE_LIMITER.WINDOW_MS, // 15 minutes
+	limit: config.RATE_LIMITER.LIMIT_CALL_PER_IP, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
 	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+	legacyHeaders: config.RATE_LIMITER.LEGACY_HEADER, // Disable the `X-RateLimit-*` headers.
 	// store: ... , // Redis, Memcached, etc. See below.
 })
 
 const app = express()
-app.use(helmet())
+app.use(helmet()) //protects against some known security threats
 app.use(limiter)
 app.use(express.json())
 app.use(requestLoggerMiddleware)
