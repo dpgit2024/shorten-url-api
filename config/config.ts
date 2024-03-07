@@ -10,6 +10,9 @@ export const config: IConfig = {
         LIMIT_CALL_PER_IP: 100,
         LEGACY_HEADER: false,
         STANDARD_HEADER: 'draft-7'
+    },
+    DB: {
+        URI: process.env.MONGODB_URI as string
     }
     
 }

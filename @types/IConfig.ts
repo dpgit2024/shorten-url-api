@@ -9,4 +9,7 @@ export interface IConfig {
         LEGACY_HEADER: boolean
         STANDARD_HEADER: string
     }
+    DB: {
+        URI: string
+    }
 }

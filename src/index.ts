@@ -3,7 +3,14 @@ require('dotenv').config()
 import app from './app'
 import { config } from '../config/config'
 import { logger } from './clients/loggerClient'
+import mongoose from 'mongoose'
+
+mongoose.connect(config.DB.URI).then(() => {
+    logger.info('MongoDB connected!')
+}).catch((err) => {
+    logger.error('Error in connecting to MOngoDB..', err)
+})
 
 app.listen(config.PORT, () => {
-    logger.info(`${config.APP_NAME} server started..`)
+    logger.info(`App ${config.APP_NAME} listening on port: ${config.PORT}`)
 })
