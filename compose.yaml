@@ -38,7 +38,7 @@ volumes:
 #     depends_on:
 #       db:
 #         condition: service_healthy
-  db:
+ 
 #     image: postgres
 #     restart: always
 #     user: postgres

@@ -6,6 +6,7 @@ import { ValidationError } from 'express-validation'
 import helmet from 'helmet'
 import { rateLimit } from 'express-rate-limit'
 import { config } from '../config/config'
+import urlRecordRouter from './routes/urlRecordRouter'
 
 const limiter = rateLimit({
 	windowMs: config.RATE_LIMITER.WINDOW_MS, // 15 minutes
@@ -23,6 +24,7 @@ app.use(requestLoggerMiddleware)
 
 app.use(healthRouter)
 app.use(shortenUrlRouter)
+app.use(urlRecordRouter)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if(err instanceof ValidationError) {
         logger.error(err)

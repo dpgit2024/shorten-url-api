@@ -16,4 +16,4 @@ const miniUrlSchema = new Schema({
 //In production we do manual indexing
 miniUrlSchema.index({ createdBy: 1, miniUrl: 1})
 
-export const miniUrlModel = model('urls', miniUrlSchema)
+export const MiniUrlModel = model('urls', miniUrlSchema)
