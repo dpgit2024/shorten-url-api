@@ -16,6 +16,6 @@ export const requestLoggerMiddleware = (req: Request, res: Response, next: NextF
         const {password, ...requestBodyWithoutPassword} = requestBody
         requestBody = requestBodyWithoutPassword
     }
-    logger.info({url: req.url, path: req.path, body: requestBody, method: req.method})
+    logger.info({url: req.url, path: req.path, body: requestBody, method: req.method, 'x-correlation-id': req.get('x-correlation-id')})
     return next()
 }

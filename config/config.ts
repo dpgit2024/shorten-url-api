@@ -1,3 +1,5 @@
+import { IConfig } from '../@types/config'
+
 export const config: IConfig = {
     PORT: process.env.PORT as string, //can be a number as well
     APP_NAME: process.env.APP_NAME as string,
