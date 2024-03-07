@@ -6,7 +6,10 @@ const miniUrlSchema = new Schema({
         type: String,
         index: true
     },
-    hits: Number,
+    hits: { 
+        type: Number,
+        default: 0
+    },
     createdBy: { 
         type: String,
         index: true
