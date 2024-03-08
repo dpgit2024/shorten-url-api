@@ -1,0 +1,7 @@
+//mock file for unit test
+export const logger: any = {
+    error: jest.fn(),
+    info: jest.fn(),
+    warn: jest.fn(),
+    debug: jest.fn()
+}
