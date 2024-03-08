@@ -7,9 +7,7 @@ export const Schema = function(schema) {
 const mockSave = jest.fn()
 
 const MockModelConstructor = function() {
-    return {
-        save: mockSave
-    }
+    
 }
 
 MockModelConstructor.findOne = jest.fn()
