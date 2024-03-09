@@ -1,7 +1,7 @@
 import { IConfig } from '../../@types/IConfig'
 
 export const config: IConfig = {
-    PORT: '5000', //can be a number as well
+    PORT: '3333', //can be a number as well
     APP_NAME: 'shorten-url-backend',
     NODE_ENV: 'dev',
     LOGGER_LEVEL: 'debug',

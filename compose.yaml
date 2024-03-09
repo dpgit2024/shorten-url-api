@@ -15,7 +15,7 @@ services:
     environment:
       NODE_ENV: production
     ports:
-      - 5000:5000
+      - 3333:3333
     depends_on:
       - mongodb
   mongodb:

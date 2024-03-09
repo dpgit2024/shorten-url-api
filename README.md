@@ -11,4 +11,4 @@ Steps to locally run this server as follows:
 5. npm i
 6. npm run build
 7. npm run start
-8. Hit localhost:5000/health to run the health check. Please use the PORT number passed in the .env file
+8. Hit localhost:3333/health to run the health check. Please use the PORT number passed in the .env file
