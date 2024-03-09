@@ -49,4 +49,11 @@ describe('urlRecordController tests-', function() {
         expect(resObj.status).toHaveBeenCalledWith(200)
 
     })
+
+    it('should throw error', async function() {
+        getUrlRecordMock.mockImplementationOnce(() => {
+            throw new Error()
+        })
+        expect(async() => await urlRecordController(reqObj as any,resObj as any)).rejects.toThrow()
+    })
 })
