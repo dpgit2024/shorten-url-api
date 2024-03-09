@@ -53,6 +53,17 @@ describe('database.ts -', function() {
             expect(record?.hits).toBe(1)
 
         })
+
+        it('should call save/ update hits when attribute undefined', async function() {
+            const attribute = 'miniUrl'
+            const value = 'abcd1'
+            findOneMock.mockResolvedValueOnce(mockUrlDBRecord)
+            const record = await getUrlRecord(undefined,value)
+            expect(findOneMock).toHaveBeenCalledWith({'miniUrl': value})
+            expect(mockUrlDBRecord.save).toHaveBeenCalled()
+            expect(record?.hits).toBe(1)
+
+        })
     })
     afterAll(() => {
         jest.clearAllMocks()
