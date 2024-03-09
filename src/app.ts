@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import { rateLimit } from 'express-rate-limit'
 import { config } from '../config/config'
 import urlRecordRouter from './routes/urlRecordRouter'
+import cors from 'cors'
 
 const limiter = rateLimit({
 	windowMs: config.RATE_LIMITER.WINDOW_MS, // 15 minutes
@@ -21,7 +22,7 @@ app.use(helmet()) //protects against some known security threats
 app.use(limiter)
 app.use(express.json())
 app.use(requestLoggerMiddleware)
-
+app.use(cors())
 app.use(healthRouter)
 app.use(shortenUrlRouter)
 app.use(urlRecordRouter)
