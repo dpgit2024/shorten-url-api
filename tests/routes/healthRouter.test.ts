@@ -1,0 +1,26 @@
+import app from '../../src/app'
+import request from 'supertest'
+import { healthController } from '../../src/controllers/healthController'
+
+jest.mock('../../src/clients/loggerClient')
+
+
+const agent = request(app)
+const resObj = { 
+    status: jest.fn().mockReturnValue({
+        send: jest.fn()
+    }), 
+    send: jest.fn()
+}
+
+const healthControllerMock = healthController as jest.Mock
+
+describe('healthRouter tests - ',function() {
+    afterAll(() => {
+        jest.clearAllMocks()
+    })
+    it('should return 200',async function() {
+        const res = await agent.get('/health')
+        expect(res.statusCode).toBe(200)
+    })
+})

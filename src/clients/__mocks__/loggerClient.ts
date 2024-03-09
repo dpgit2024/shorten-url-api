@@ -5,3 +5,7 @@ export const logger: any = {
     warn: jest.fn(),
     debug: jest.fn()
 }
+
+export const requestLoggerMiddleware = jest.fn().mockImplementationOnce((req, res, next)=> {
+    return next()
+})
