@@ -6,14 +6,6 @@ jest.mock('../../src/clients/loggerClient')
 
 
 const agent = request(app)
-const resObj = { 
-    status: jest.fn().mockReturnValue({
-        send: jest.fn()
-    }), 
-    send: jest.fn()
-}
-
-const healthControllerMock = healthController as jest.Mock
 
 describe('healthRouter tests - ',function() {
     afterAll(() => {
