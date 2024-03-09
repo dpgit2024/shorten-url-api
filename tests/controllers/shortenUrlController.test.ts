@@ -28,4 +28,15 @@ describe('shortenUrlController tests-', function() {
         expect(shortenUrlMock).toHaveBeenCalled()
 
     })
+
+    it('should throw error', async function() {
+        shortenUrlMock.mockImplementationOnce(() => {
+            throw new Error()
+        })
+        
+        expect(async() => {
+            await shortenUrlController(reqObj as any,resObj as any)
+        }).rejects.toThrow()
+
+    })
 })
