@@ -9,7 +9,7 @@ jest.mock('../../src/lib/database')
 jest.mock('../../src/controllers/shortenUrlController')
 jest.mock('../../src/')
 
-const agent = request(app)
+
 
 
 
@@ -17,8 +17,9 @@ describe('shortenUrlRecordRouter tests - ',function() {
     afterAll(() => {
         jest.clearAllMocks()
     })
+   
     it('should return 400 for body url',async function() {
-        const res = await agent.post('/url-shortener')
+        const res = await request(app).post('/url-shortener').set('x-correlation-id', 'fake')
         
         expect(res.statusCode).toBe(400)
     })
