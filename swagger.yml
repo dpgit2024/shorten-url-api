@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info: 
+  title: Shorten URL Service
+  description: |-
+    This service offers REST Endpoints to shorten URLs.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3333
+tags:
+  - name: url
+    description: Short URL management
+paths:
+  /url-record:
+    post:
+      tags:
+        - url
+      summary: create a MiniURL
+      description: save a url and return a unique shortUrlId which can be used as MiniURL
+      operationId: shortenUrl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - url
+              type: object
+              properties:
+                url:
+                  type: string
+                  example: https://www.google.com
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shortUrlId: 
+                    type: string
+                    example: jTG0e
+        '400':
+            description: Validation Error - Invalid URL
+        '429':
+            description: Too many requests - Rate Limiter
+        '500':
+            description: Internal Server Error.
+    get:
+      tags:
+        - url
+      summary: get original url
+      description: Fetch originalUrl based on miniUrl id and update hits count
+      operationId: getUrlRecord
+      parameters:
+        - name: miniUrl
+          in: query
+          description: MiniUrl id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/UrlRecord'
+        '404':
+          description: Not Found.
+        '400':
+          description: Validation Error
+        '429':
+            description: Too many requests - Rate Limiter
+        '500':
+          description: Internal Server Error. 
+components:
+  schemas:
+    UrlRecord:
+      type: object
+      properties:
+        UrlRecord:
+          type: object
+          properties:
+            _id:
+              type: string
+              example: 65ecd5592a04bcd9c6aba9a2
+            originalUrl:
+              type: string
+              example: https://www.google.com
+            miniUrl:
+              type: string
+              example: SjJXl
+            hits:
+              type: number
+              example: 1
+            createdAt:
+              type: string
+              example: '2024-03-09T21:32:09.232Z'
+            updatedAt:
+              type: string
+              example: '2024-03-09T21:49:06.869Z'
+            __v:
+              type: number
+              example: 0
+        msg:
+          type: string
+          example: Found!
+
+
+
+
