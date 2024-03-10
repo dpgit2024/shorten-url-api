@@ -1,6 +1,6 @@
 **Shorten URL Microservice**
 
-Author: [Deepak Pagaro](https://github.com/dpgit2024)
+Author: [Deepak Pagaro](https://www.linkedin.com/in/deepak-p-2a9076b/)
 
 Shorten URL Backend project is developed for the DeepOrigin Senior Software Engineer interview.
 
