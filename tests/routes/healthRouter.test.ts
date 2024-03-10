@@ -12,7 +12,7 @@ describe('healthRouter tests - ',function() {
         jest.clearAllMocks()
     })
     it('should return 200',async function() {
-        const res = await agent.get('/health')
+        const res = await agent.get('/api/v1/health')
         expect(res.statusCode).toBe(200)
     })
 })

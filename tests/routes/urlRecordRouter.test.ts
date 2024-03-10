@@ -17,7 +17,7 @@ describe('urlRecordRouter tests - ',function() {
         jest.clearAllMocks()
     })
     it('should return 400 for missing query param',async function() {
-        const res = await agent.get('/url-record')
+        const res = await agent.get('/api/v1/url-record')
         
         expect(res.statusCode).toBe(400)
     })

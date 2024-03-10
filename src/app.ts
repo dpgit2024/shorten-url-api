@@ -23,9 +23,9 @@ app.use(limiter)
 app.use(express.json())
 app.use(requestLoggerMiddleware)
 app.use(cors())
-app.use(healthRouter)
-app.use(shortenUrlRouter)
-app.use(urlRecordRouter)
+app.use('/api/v1',healthRouter)
+app.use('/api/v1',shortenUrlRouter)
+app.use('/api/v1',urlRecordRouter)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if(err instanceof ValidationError) {
         logger.error(err)

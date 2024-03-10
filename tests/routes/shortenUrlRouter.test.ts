@@ -19,7 +19,7 @@ describe('shortenUrlRecordRouter tests - ',function() {
     })
    
     it('should return 400 for body url',async function() {
-        const res = await request(app).post('/url-record').set('x-correlation-id', 'fake')
+        const res = await request(app).post('/api/v1/url-record').set('x-correlation-id', 'fake')
         
         expect(res.statusCode).toBe(400)
     })
