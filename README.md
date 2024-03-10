@@ -6,6 +6,10 @@ Shorten URL Backend project is developed for the DeepOrigin Senior Software Engi
 
 
 This project is developed using Node.js, TypeScript.js, Express.js, MongoDB, Docker and Jest for unit testing.
+
+This is a REST API service.
+
+
 This project uses node version 20.11.1 This project comes with a Swagger API Doc route. 
 ## Instructions
 To install docker refer https://docs.docker.com/engine/install/
