@@ -8,6 +8,11 @@ import { rateLimit } from 'express-rate-limit'
 import { config } from '../config/config'
 import urlRecordRouter from './routes/urlRecordRouter'
 import cors from 'cors'
+import swaggerUi from 'swagger-ui-express'
+import YAML from 'yamljs'
+const path = require('path')
+const swaggerDocument = YAML.load(path.resolve(__dirname,'../swagger.yml'))
+
 
 const limiter = rateLimit({
 	windowMs: config.RATE_LIMITER.WINDOW_MS, // 15 minutes
@@ -23,6 +28,7 @@ app.use(limiter)
 app.use(express.json())
 app.use(requestLoggerMiddleware)
 app.use(cors())
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/api/v1',healthRouter)
 app.use('/api/v1',shortenUrlRouter)
 app.use('/api/v1',urlRecordRouter)
