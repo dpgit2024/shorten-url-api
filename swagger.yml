@@ -9,6 +9,8 @@ servers:
 tags:
   - name: url
     description: Short URL management
+  - name: health
+    description: Server health check
 paths:
   /url-record:
     post:
@@ -89,6 +91,28 @@ paths:
             description: Too many requests - Rate Limiter
         '500':
           description: Internal Server Error. 
+  /health:
+    get:
+      tags:
+        - health
+      summary: server healthcheck endpoint
+      responses:
+        '200':
+         description: Successful operation.
+         content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Shorten URL API service is running.
+        '429':
+          description: Too many requests - Rate limiter
+        '500':
+          description: Internal Server Error.
+
+
 components:
   schemas:
     UrlRecord:
