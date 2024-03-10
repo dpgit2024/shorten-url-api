@@ -17,6 +17,14 @@ paths:
       summary: create a MiniURL
       description: save a url and return a unique shortUrlId which can be used as MiniURL
       operationId: shortenUrl
+      parameters:
+        - name: x-correlation-id
+          in: header
+          description: correlationId for logging and traceability
+          required: true
+          schema:
+              type: string
+              example: random-dsljqlksadas-uuid
       requestBody:
         content:
           application/json:
@@ -58,6 +66,14 @@ paths:
           required: true
           schema:
             type: string
+            example: SjJXl
+        - name: x-correlation-id
+          in: header
+          description: correlationId for logging and traceability
+          required: true
+          schema:
+            type: string
+            example: randomasdjlkjaskdj
       responses:
         '200':
           description: Successful operation.
