@@ -31,6 +31,8 @@ Please ensure the ports used by this project are not already in use or adjust th
  ```localhost:3333/api-docs```
  
  to view the API docs. You can also try out the API by clicking execute on the Swagger Doc while serving in your local device!
+
+ 
  Please note that you may have issues viewing swagger doc serving on the doc route if using Safari due to its security defaults. I recommend using Google Chrome browser to view the swagger docs serving on the doc router. 
  
  Alternatively, you can copy contents of the swagger.yml and paste it in the online editor https://editor.swagger.io to view the API docs but it won't successfully let you execute or test if server is running in your local. You may have to make those API calls in postman or other clients. 
