@@ -13,6 +13,7 @@ export const config: IConfig = {
     },
     DB: {
         URI: process.env.MONGODB_URI as string
-    }
+    },
+    SALT_ROUNDS: 10
     
 }

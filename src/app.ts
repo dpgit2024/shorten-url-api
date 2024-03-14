@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import { rateLimit } from 'express-rate-limit'
 import { config } from '../config/config'
 import urlRecordRouter from './routes/urlRecordRouter'
+import registrationRouter from './routes/registrationRouter'
 import cors from 'cors'
 import swaggerUi from 'swagger-ui-express'
 import YAML from 'yamljs'
@@ -32,6 +33,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/api/v1',healthRouter)
 app.use('/api/v1',shortenUrlRouter)
 app.use('/api/v1',urlRecordRouter)
+app.use('/api/v1',registrationRouter)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if(err instanceof ValidationError) {
         logger.error(err)

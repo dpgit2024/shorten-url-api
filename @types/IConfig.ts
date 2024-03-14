@@ -12,4 +12,5 @@ export interface IConfig {
     DB: {
         URI: string
     }
+    SALT_ROUNDS: number
 }
