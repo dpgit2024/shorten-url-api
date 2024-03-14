@@ -13,4 +13,11 @@ export interface IConfig {
         URI: string
     }
     SALT_ROUNDS: number
+    MSG: {
+        AUTH_ERROR: string
+        AUTH_SUCCESS: string
+    }
+    JWT: {
+        SECRET: string
+    }
 }

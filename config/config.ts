@@ -14,6 +14,13 @@ export const config: IConfig = {
     DB: {
         URI: process.env.MONGODB_URI as string
     },
-    SALT_ROUNDS: 10
+    SALT_ROUNDS: 10,
+    MSG: {
+        AUTH_ERROR: 'Authentication failed.',
+        AUTH_SUCCESS: 'Authentication successful.'
+    },
+    JWT: {
+        SECRET: process.env.JWT_SECRET_KEY as string
+    }
     
 }
