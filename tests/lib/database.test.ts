@@ -1,6 +1,7 @@
 import { MiniUrlModel } from '../../src/model/miniUrlModel'
-
-import { createUrlRecord, getUrlRecord } from '../../src/lib/database'
+import { UserModel } from '../../src/model/userModel'
+import { createUrlRecord, getUrlRecord, createUserRecord } from '../../src/lib/database'
+import { hashPassword } from '../../src/lib/password'
 
 const mockUrlRecord = {
     originalUrl: 'https://www.google.com/lfsdlkjda',
@@ -14,11 +15,25 @@ const mockUrlDBRecord = {
     save: jest.fn()
 }
 
+const mockUserRecord = {
+    userName: 'fake',
+    email: 'fake@fake.com',
+    firstName: 'fake',
+    lastName: 'fake',
+    password: 'plain'
+}
+
 jest.mock('mongoose')
 jest.createMockFromModule('../../src/model/miniUrlModel')
+jest.mock('../../src/lib/password')
+jest.mock('bcrypt')
 
 const findOneMock = MiniUrlModel.findOne as jest.Mock
-const mockSave = new MiniUrlModel().save as jest.Mock
+const mockSaveUrl = new MiniUrlModel().save as jest.Mock
+const mockHashPassword = hashPassword as jest.Mock
+const mockSaveUser = new UserModel().save as jest.Mock
+
+
 describe('database.ts -', function() {
     beforeEach(() => {
         mockUrlDBRecord.hits = 0
@@ -27,7 +42,7 @@ describe('database.ts -', function() {
     describe('createUrlRecord tests -',function() {
         it('should call save', async function() {
             await createUrlRecord(mockUrlRecord)
-            expect(mockSave).toHaveBeenCalled()
+            expect(mockSaveUrl).toHaveBeenCalled()
         })
     })
     describe('getUrlRecord tests -',function() {
@@ -63,6 +78,13 @@ describe('database.ts -', function() {
             expect(mockUrlDBRecord.save).toHaveBeenCalled()
             expect(record?.hits).toBe(1)
 
+        })
+    })
+    describe('createUserRecord tests -', function() {
+        it('should call save',async function() {
+            mockHashPassword.mockResolvedValueOnce('hashed')
+            await createUserRecord(mockUserRecord)
+            expect(mockSaveUser).toHaveBeenCalled()
         })
     })
     afterAll(() => {
