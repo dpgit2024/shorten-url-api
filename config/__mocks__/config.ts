@@ -13,6 +13,15 @@ export const config: IConfig = {
     },
     DB: {
         URI: 'fake'
+    },
+    SALT_ROUNDS: 10,
+    MSG: {
+        AUTH_ERROR: 'Authentication failed.',
+        AUTH_SUCCESS: 'Authentication successful.',
+        SERVER_ERROR: 'Internal Server Error.'
+    },
+    JWT: {
+        SECRET: 'fake'
     }
     
 }
