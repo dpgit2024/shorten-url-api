@@ -1,6 +1,6 @@
 import { MiniUrlModel } from '../../src/model/miniUrlModel'
 import { UserModel } from '../../src/model/userModel'
-import { createUrlRecord, getUrlRecord, createUserRecord } from '../../src/lib/database'
+import { createUrlRecord, getUrlRecord, createUserRecord, getUserRecord } from '../../src/lib/database'
 import { hashPassword } from '../../src/lib/password'
 
 const mockUrlRecord = {
@@ -23,6 +23,13 @@ const mockUserRecord = {
     password: 'plain'
 }
 
+const fakeDate = new Date('December 17, 1995 03:24:00')
+const mockUserDBRecord = {
+    ...mockUserRecord,
+    save: jest.fn(),
+    lastLoginAt: fakeDate
+}
+
 jest.mock('mongoose')
 jest.createMockFromModule('../../src/model/miniUrlModel')
 jest.mock('../../src/lib/password')
@@ -32,7 +39,7 @@ const findOneMock = MiniUrlModel.findOne as jest.Mock
 const mockSaveUrl = new MiniUrlModel().save as jest.Mock
 const mockHashPassword = hashPassword as jest.Mock
 const mockSaveUser = new UserModel().save as jest.Mock
-
+const findOneMockUser = UserModel.findOne as jest.Mock
 
 describe('database.ts -', function() {
     beforeEach(() => {
@@ -85,6 +92,28 @@ describe('database.ts -', function() {
             mockHashPassword.mockResolvedValueOnce('hashed')
             await createUserRecord(mockUserRecord)
             expect(mockSaveUser).toHaveBeenCalled()
+            expect(mockHashPassword).toHaveBeenCalled()
+        })
+    })
+    describe('getUserRecord tests -', function() {
+        it('should call findOne function', async function() {
+            findOneMockUser.mockResolvedValueOnce(mockUserDBRecord)
+            await getUserRecord('userName', 'fake')
+            expect(findOneMockUser).toHaveBeenCalled()
+        })
+
+        it('should return null when no record', async function() {
+            findOneMockUser.mockResolvedValueOnce(null)
+            const value = await getUserRecord('userName', 'fake')
+            expect(value).toBeNull()
+        })
+
+        it('should call save when attribute undefined', async function() {
+            const value = 'abcd1'
+            findOneMockUser.mockResolvedValueOnce(mockUserDBRecord)
+            const record = await getUserRecord(undefined, value)
+            expect(findOneMockUser).toHaveBeenCalledWith({'userName': value})
+            expect(mockUserDBRecord.save).toHaveBeenCalled()
         })
     })
     afterAll(() => {
