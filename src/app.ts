@@ -11,6 +11,7 @@ import registrationRouter from './routes/registrationRouter'
 import cors from 'cors'
 import swaggerUi from 'swagger-ui-express'
 import YAML from 'yamljs'
+import loginRouter from './routes/loginRouter'
 const path = require('path')
 const swaggerDocument = YAML.load(path.resolve(__dirname,'../swagger.yml'))
 
@@ -30,16 +31,19 @@ app.use(express.json())
 app.use(requestLoggerMiddleware)
 app.use(cors())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-app.use('/api/v1',healthRouter)
-app.use('/api/v1',shortenUrlRouter)
-app.use('/api/v1',urlRecordRouter)
-app.use('/api/v1',registrationRouter)
+app.use('/api/v1', healthRouter)
+app.use('/api/v1', shortenUrlRouter)
+app.use('/api/v1', urlRecordRouter)
+app.use('/api/v1', registrationRouter)
+app.use('/api/v1/', loginRouter)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if(err instanceof ValidationError) {
         logger.error(err)
         return res.status(err.statusCode).json(err)
     }
-    return res.status(500).json(err)
+    return res.status(500).json({
+        msg: config.MSG.SERVER_ERROR
+    })
 }) 
 
 

@@ -16,6 +16,7 @@ export interface IConfig {
     MSG: {
         AUTH_ERROR: string
         AUTH_SUCCESS: string
+        SERVER_ERROR: string
     }
     JWT: {
         SECRET: string
