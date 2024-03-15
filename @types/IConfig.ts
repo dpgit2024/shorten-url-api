@@ -12,4 +12,13 @@ export interface IConfig {
     DB: {
         URI: string
     }
+    SALT_ROUNDS: number
+    MSG: {
+        AUTH_ERROR: string
+        AUTH_SUCCESS: string
+        SERVER_ERROR: string
+    }
+    JWT: {
+        SECRET: string
+    }
 }
