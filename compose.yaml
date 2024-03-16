@@ -20,7 +20,7 @@ services:
       - mongodb
   mongodb:
     image: mongo:latest
-    container_name: interview-mongodb
+    container_name: url-shortener-mongodb
     restart: always
     ports:
       - "27017:27017"
