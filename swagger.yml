@@ -84,7 +84,7 @@ paths:
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/UrlRecord'
+                $ref: '#/components/schemas/UrlRecordResponse'
         '404':
           description: Not Found.
         '400':
@@ -205,7 +205,7 @@ paths:
 
 components:
   schemas:
-    UrlRecord:
+    UrlRecordResponse:
       type: object
       properties:
         UrlRecord:
