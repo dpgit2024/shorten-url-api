@@ -29,9 +29,19 @@ const logErrorMock = logger.error as jest.Mock
 const createUserRecordMock = createUserRecord as jest.Mock
 describe('registrationController tests -', function() {
     it('should call createUserRecord',async function() {
+        createUserRecordMock.mockResolvedValueOnce({
+            userName: 'fake'
+        })
        await registrationController(requestObjectMock as any,responseObjectMock as any,  nextFunction as any)
        expect(createUserRecordMock).toHaveBeenCalled()
        expect(responseObjectMock.status).toHaveBeenCalledWith(200)
+    })
+
+    it('should fail registration on existing user',async function() {
+        createUserRecordMock.mockResolvedValueOnce(null)
+       await registrationController(requestObjectMock as any,responseObjectMock as any,  nextFunction as any)
+       expect(createUserRecordMock).toHaveBeenCalled()
+       expect(responseObjectMock.status).toHaveBeenCalledWith(400)
     })
 
     it('should handle error',async function() {

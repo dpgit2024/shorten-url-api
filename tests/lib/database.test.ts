@@ -94,6 +94,14 @@ describe('database.ts -', function() {
             expect(mockSaveUser).toHaveBeenCalled()
             expect(mockHashPassword).toHaveBeenCalled()
         })
+        it('should return null',async function() {
+            mockHashPassword.mockResolvedValueOnce('hashed')
+            findOneMockUser.mockResolvedValueOnce(mockUserDBRecord)
+            const result = await createUserRecord(mockUserRecord)
+            expect(mockSaveUser).not.toHaveBeenCalled()
+            expect(mockHashPassword).not.toHaveBeenCalled()
+            expect(result).toBeNull()
+        })
     })
     describe('getUserRecord tests -', function() {
         it('should call findOne function', async function() {

@@ -26,6 +26,9 @@ describe('registrationRouter tests - ',function() {
     })
    
     it('should return 200 for body',async function() {
+        createUserRecordMock.mockResolvedValueOnce({
+            userName: 'fake'
+        })
         const res = await request(app).post('/api/v1/registration').set('x-correlation-id', 'fake').set('Accept', 'application/json').send(registrationPayload)
         
         expect(res.statusCode).toBe(200)

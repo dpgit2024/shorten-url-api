@@ -18,7 +18,9 @@ export const config: IConfig = {
     MSG: {
         AUTH_ERROR: 'Authentication failed.',
         AUTH_SUCCESS: 'Authentication successful.',
-        SERVER_ERROR: 'Internal Server Error.'
+        SERVER_ERROR: 'Internal Server Error.',
+        REGISTRATION_ERROR: 'Account registration failed. User already exists.',
+        REGISTRATION_SUCCESS: 'Account registration successful.'
     },
     JWT: {
         SECRET: 'fake'

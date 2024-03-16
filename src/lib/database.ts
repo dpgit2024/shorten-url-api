@@ -21,9 +21,14 @@ export const getUrlRecord = async function(attribute = 'miniUrl', value: string)
 }
 
 export const createUserRecord = async function(record: IUserRecord) {
+    const existingRecord = await UserModel.findOne({'userName': record.userName})
+    if(existingRecord) {
+        return null
+    }
     record.password = await hashPassword(record.password)
     const userModel = new UserModel(record)
     await userModel.save()
+    return userModel
 }
 
 export const getUserRecord = async function(attribute = 'userName', value: string) {

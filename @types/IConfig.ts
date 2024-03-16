@@ -17,6 +17,8 @@ export interface IConfig {
         AUTH_ERROR: string
         AUTH_SUCCESS: string
         SERVER_ERROR: string
+        REGISTRATION_ERROR: string
+        REGISTRATION_SUCCESS: string
     }
     JWT: {
         SECRET: string
