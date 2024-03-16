@@ -1,9 +1,5 @@
 ## Shorten URL Microservice
 
-Author: [Deepak Pagaro](https://www.linkedin.com/in/deepak-p-2a9076b/)
-
-Shorten URL Backend project is developed for the DeepOrigin Senior Software Engineer interview.
-
 
 This project is developed using Node.js, TypeScript.js, Express.js, MongoDB, Docker and Jest for unit testing.
 
