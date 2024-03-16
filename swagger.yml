@@ -11,6 +11,8 @@ tags:
     description: Short URL management
   - name: health
     description: Server health check
+  - name: account
+    description: Manage your account
 paths:
   /url-record:
     post:
@@ -111,6 +113,94 @@ paths:
           description: Too many requests - Rate limiter
         '500':
           description: Internal Server Error.
+  /login:
+      post:
+        tags:
+        - account
+        summary: login to shorten url portal
+        description: validate password and return jwt accesstoken
+        operationId: login
+        parameters:
+        - name: x-correlation-id
+          in: header
+          description: correlationId for logging and traceability
+          required: true
+          schema:
+              type: string
+              example: random-dsljqlksadas-uuid
+        requestBody:
+          content:
+            application/json:
+              schema:
+                required:
+                  - userName
+                  - password
+                type: object
+                properties:
+                  userName:
+                    type: string
+                    example: fakeUser
+                  password:
+                    type: string
+                    example: fakepass1!A
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    msg: 
+                      type: string
+                      example: Authentication successful.
+                    accessToken:
+                      type: string
+                      example: fakeTokenasdlkj
+          '400':
+              description: Validation Error 
+          '429':
+              description: Too many requests - Rate Limiter
+          '500':
+              description: Internal Server Error.
+  /registration:
+    post:
+      tags:
+        - account
+      summary: Register for an account
+      description: creates a user account for short url management
+      operationId: registration
+      parameters:
+        - name: x-correlation-id
+          in: header
+          description: correlationId for logging and traceability
+          required: true
+          schema:
+              type: string
+              example: random-dsljqlksadas-uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationBody'
+      responses:
+          '200':
+            description: 'Successfull operation.'
+            content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      message: 
+                        type: string
+                        example: Account registration successful.
+          '400':
+                description: Validation Error 
+          '429':
+                description: Too many requests - Rate Limiter
+          '500':
+                description: Internal Server Error.
+
 
 
 components:
@@ -145,6 +235,34 @@ components:
         msg:
           type: string
           example: Found!
+    RegistrationBody:
+        required:
+                - firstName
+                - lastName
+                - userName
+                - password
+                - confirmPassword
+                - email
+        type: object
+        properties:
+          userName:
+            type: string
+            example: fakeUser
+          firstName:
+            type: string
+            example: fakeFirst
+          lastName:
+            type: string
+            example: fakeLast
+          email:
+            type: string
+            example: fake@fake.com
+          password:
+            type: string
+            example: fakepass1!A
+          confirmPassword:
+            type: string
+            example: fakepass1!A
 
 
 
