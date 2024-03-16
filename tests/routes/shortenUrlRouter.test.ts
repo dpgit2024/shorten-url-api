@@ -7,7 +7,6 @@ jest.mock('mongoose')
 jest.createMockFromModule('../../src/model/miniUrlModel')
 jest.mock('../../src/lib/database')
 jest.mock('../../src/controllers/shortenUrlController')
-jest.mock('../../src/')
 
 
 
