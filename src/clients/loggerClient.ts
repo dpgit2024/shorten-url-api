@@ -16,6 +16,10 @@ export const requestLoggerMiddleware = (req: Request, res: Response, next: NextF
         const {password, ...requestBodyWithoutPassword} = requestBody
         requestBody = requestBodyWithoutPassword
     }
+    if(req.body?.confirmPassword) { //remove sensitive info from logger
+        const {confirmPassword, ...requestBodyWithoutAnyPassword} = requestBody
+        requestBody = requestBodyWithoutAnyPassword
+    }
     const logData = {
       url: req.url,
       path: req.path,
