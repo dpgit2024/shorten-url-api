@@ -11,6 +11,7 @@ const MockModelConstructor = function() {
 }
 
 MockModelConstructor.findOne = jest.fn()
+MockModelConstructor.find = jest.fn()
 MockModelConstructor.prototype.save = jest.fn()
 export const model = jest.fn().mockImplementation(function() {
     return MockModelConstructor

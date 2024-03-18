@@ -40,6 +40,7 @@ const mockSaveUrl = new MiniUrlModel().save as jest.Mock
 const mockHashPassword = hashPassword as jest.Mock
 const mockSaveUser = new UserModel().save as jest.Mock
 const findOneMockUser = UserModel.findOne as jest.Mock
+const findMockUser = UserModel.find as jest.Mock
 
 describe('database.ts -', function() {
     beforeEach(() => {
@@ -96,7 +97,7 @@ describe('database.ts -', function() {
         })
         it('should return null',async function() {
             mockHashPassword.mockResolvedValueOnce('hashed')
-            findOneMockUser.mockResolvedValueOnce(mockUserDBRecord)
+            findMockUser.mockResolvedValueOnce(mockUserDBRecord)
             const result = await createUserRecord(mockUserRecord)
             expect(mockSaveUser).not.toHaveBeenCalled()
             expect(mockHashPassword).not.toHaveBeenCalled()
