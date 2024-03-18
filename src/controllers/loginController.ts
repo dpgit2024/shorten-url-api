@@ -19,9 +19,11 @@ export const loginController = async (req: Request, res: Response, next: NextFun
         }
 
         const accessToken = generateToken(record.userName as string)
+        record.password = undefined
         return res.status(200).send({
             msg: config.MSG.AUTH_SUCCESS,
-            accessToken: accessToken
+            accessToken: accessToken,
+            user: record
         }) 
     } catch (error) {
         const msg = 'Error in loginController'

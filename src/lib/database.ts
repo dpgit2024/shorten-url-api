@@ -34,8 +34,10 @@ export const createUserRecord = async function(record: IUserRecord) {
 export const getUserRecord = async function(attribute = 'userName', value: string) {
     const record = await UserModel.findOne({[attribute]: value})
     if(record) {
+        const lastLoginAt = record.lastLoginAt
         record.lastLoginAt = new Date()
         await record.save()
+        record.lastLoginAt = lastLoginAt
     }
     return record
 }
