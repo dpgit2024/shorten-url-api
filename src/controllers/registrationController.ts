@@ -10,7 +10,8 @@ export const registrationController = async (req: Request, res: Response, next: 
         const result = await createUserRecord(requestBody)
         if(!result) {
             return res.status(400).send({
-                message: config.MSG.REGISTRATION_ERROR
+                message: config.MSG.REGISTRATION_ERROR,
+                accountAlreadyExists: true
             })
         }
         return res.status(200).send({
