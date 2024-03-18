@@ -22,7 +22,7 @@ export const getUrlRecord = async function(attribute = 'miniUrl', value: string)
 
 export const createUserRecord = async function(record: IUserRecord) {
     const existingRecord = await UserModel.find({ $or: [ {'userName': record.userName}, {'email': record.email}]} )
-    if(existingRecord) {
+    if(existingRecord?.length) {
         return null
     }
     record.password = await hashPassword(record.password)

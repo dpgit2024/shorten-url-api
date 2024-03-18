@@ -97,7 +97,7 @@ describe('database.ts -', function() {
         })
         it('should return null',async function() {
             mockHashPassword.mockResolvedValueOnce('hashed')
-            findMockUser.mockResolvedValueOnce(mockUserDBRecord)
+            findMockUser.mockResolvedValueOnce([mockUserDBRecord])
             const result = await createUserRecord(mockUserRecord)
             expect(mockSaveUser).not.toHaveBeenCalled()
             expect(mockHashPassword).not.toHaveBeenCalled()
