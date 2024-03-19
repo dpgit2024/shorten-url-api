@@ -41,3 +41,11 @@ export const getUserRecord = async function(attribute = 'userName', value: strin
     }
     return record
 }
+
+export const getUrlsCreatedByUsers = async function(createdBy: string) {
+    const records = await MiniUrlModel.find({createdBy: createdBy})
+    if(records?.length) {
+        return records
+    }
+    return null
+}

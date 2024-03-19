@@ -1,6 +1,6 @@
 import { MiniUrlModel } from '../../src/model/miniUrlModel'
 import { UserModel } from '../../src/model/userModel'
-import { createUrlRecord, getUrlRecord, createUserRecord, getUserRecord } from '../../src/lib/database'
+import { createUrlRecord, getUrlRecord, createUserRecord, getUserRecord, getUrlsCreatedByUsers } from '../../src/lib/database'
 import { hashPassword } from '../../src/lib/password'
 
 const mockUrlRecord = {
@@ -41,6 +41,7 @@ const mockHashPassword = hashPassword as jest.Mock
 const mockSaveUser = new UserModel().save as jest.Mock
 const findOneMockUser = UserModel.findOne as jest.Mock
 const findMockUser = UserModel.find as jest.Mock
+const findMockUrl = MiniUrlModel.find as jest.Mock
 
 describe('database.ts -', function() {
     beforeEach(() => {
@@ -123,6 +124,20 @@ describe('database.ts -', function() {
             const record = await getUserRecord(undefined, value)
             expect(findOneMockUser).toHaveBeenCalledWith({'userName': value})
             expect(mockUserDBRecord.save).toHaveBeenCalled()
+        })
+    })
+
+    describe('getUrlsCreatedByUsers tests -', function() {
+        it('should call find function', async function() {
+            findMockUrl.mockResolvedValueOnce([mockUrlDBRecord])
+            await getUrlsCreatedByUsers('fakeUser')
+            expect(findMockUrl).toHaveBeenCalled()
+        })
+
+        it('should return null when no record', async function() {
+            findMockUrl.mockResolvedValueOnce(null)
+            const value = await getUrlsCreatedByUsers('fakeUser')
+            expect(value).toBeNull()
         })
     })
     afterAll(() => {
