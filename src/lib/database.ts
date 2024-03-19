@@ -49,3 +49,18 @@ export const getUrlsCreatedByUsers = async function (createdBy: string) {
     }
     return null
 }
+
+export const editMiniUrlRecord = async function (createdBy: string, miniUrl: string, newMiniUrl: string) {
+    const record = await MiniUrlModel.findOne({ createdBy: createdBy, miniUrl: miniUrl })
+    if (!record) {
+        return null
+    }
+    const checkNewMiniUrlRecord = await MiniUrlModel.findOne({ miniUrl: newMiniUrl })
+    if (checkNewMiniUrlRecord) {
+        return null
+    }
+    record.hits = 0
+    record.miniUrl = newMiniUrl
+    await record.save()
+    return record
+}

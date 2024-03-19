@@ -1,6 +1,6 @@
 import { MiniUrlModel } from '../../src/model/miniUrlModel'
 import { UserModel } from '../../src/model/userModel'
-import { createUrlRecord, getUrlRecord, createUserRecord, getUserRecord, getUrlsCreatedByUsers } from '../../src/lib/database'
+import { createUrlRecord, getUrlRecord, createUserRecord, getUserRecord, getUrlsCreatedByUsers, editMiniUrlRecord } from '../../src/lib/database'
 import { hashPassword } from '../../src/lib/password'
 
 const mockUrlRecord = {
@@ -137,6 +137,28 @@ describe('database.ts -', function() {
         it('should return null when no record', async function() {
             findMockUrl.mockResolvedValueOnce(null)
             const value = await getUrlsCreatedByUsers('fakeUser')
+            expect(value).toBeNull()
+        })
+    })
+
+    describe('editMiniUrlRecord tests -', function() {
+        it('should call findOne function', async function() {
+            findOneMock.mockResolvedValueOnce(mockUrlDBRecord)
+            await editMiniUrlRecord('fakeUser', 'abcd1', 'abcd2')
+            expect(findOneMock).toHaveBeenCalledTimes(2)
+            expect(findOneMock).toHaveBeenCalledWith({createdBy: 'fakeUser', miniUrl: 'abcd1'})
+            expect(findOneMock).toHaveBeenCalledWith({miniUrl: 'abcd2'})
+        })
+
+        it('should return null when no record', async function() {
+            findOneMock.mockResolvedValueOnce(null)
+            const value = await editMiniUrlRecord('fakeUser', 'abcd1', 'abcd2')
+            expect(value).toBeNull()
+        })
+
+        it('should return null when no record', async function() {
+            findOneMock.mockResolvedValue(mockUrlDBRecord)
+            const value = await editMiniUrlRecord('fakeUser', 'abcd1', 'abcd2')
             expect(value).toBeNull()
         })
     })
