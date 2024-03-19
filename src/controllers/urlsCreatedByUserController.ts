@@ -6,6 +6,11 @@ import { getUrlsCreatedByUsers } from '../lib/database'
 export const urlsCreatedByUserController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const authHeader: string = req.get('Authorization') as string
+        if(!authHeader) {
+            return res.status(400).send({
+                msg: 'Auth token is required!'
+            })
+        }
         const auth = authHeader.split(' ')[1]
         const createdBy = validateToken(auth)
         if (!createdBy) {
