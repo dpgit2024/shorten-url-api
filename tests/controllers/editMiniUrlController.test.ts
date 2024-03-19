@@ -1,6 +1,6 @@
 import { validateToken } from '../../src/lib/authToken'
-import { urlsCreatedByUserController } from '../../src/controllers/urlsCreatedByUserController'
-import { getUrlsCreatedByUsers } from '../../src/lib/database'
+import { editMiniUrlController } from '../../src/controllers/editMiniUrlController'
+import { editMiniUrlRecord } from '../../src/lib/database'
 
 jest.mock('express')
 jest.mock('../../src/lib/database')
@@ -9,13 +9,14 @@ jest.mock('../../config/config')
 jest.mock('mongoose')
 jest.mock('../../src/lib/authToken')
 
-const getUrlsCreatedByUsersMock = getUrlsCreatedByUsers as jest.Mock
+const editMiniUrlRecordMock = editMiniUrlRecord as jest.Mock
 const validateTokenMock = validateToken as jest.Mock
 
 const reqObj = {
     get: jest.fn(),
     body: {
-        url: 'https://www.google.com/wjkhfdhfdajkhdajk'
+        miniUrl: 'wjkhfdhfdajkhdajk',
+        newMiniUrl: 'hjWq' 
     }
 }
 
@@ -28,7 +29,7 @@ const resObj = {
 
 const nextFunctionMock = jest.fn()
 
-describe('urlsCreatedByUserController tests-', function() {
+describe('editMiniUrlRecordMock tests-', function() {
     beforeEach(() => {
       
     })
@@ -36,18 +37,18 @@ describe('urlsCreatedByUserController tests-', function() {
     it('should call getUrlsCreatedByUsersMock lib function', async function() {
         reqObj.get.mockReturnValueOnce('Bearer fakeToken')
         validateTokenMock.mockResolvedValueOnce('fakeUser')
-        await urlsCreatedByUserController(reqObj as any,resObj as any, nextFunctionMock as any)
-        expect(getUrlsCreatedByUsersMock).toHaveBeenCalled()
+        await editMiniUrlController(reqObj as any,resObj as any, nextFunctionMock as any)
+        expect(editMiniUrlRecordMock).toHaveBeenCalled()
         expect(resObj.status).toHaveBeenCalledWith(200)
     })
 
     it('should call next function', async function() {
         reqObj.get.mockReturnValueOnce('Bearer fakeToken')
-        getUrlsCreatedByUsersMock.mockImplementationOnce(() => {
+        editMiniUrlRecordMock.mockImplementationOnce(() => {
             throw new Error()
         })
         validateTokenMock.mockResolvedValueOnce('fakeUser')
-        await urlsCreatedByUserController(reqObj as any,resObj as any, nextFunctionMock as any) 
+        await editMiniUrlController(reqObj as any,resObj as any, nextFunctionMock as any) 
         expect(nextFunctionMock).toHaveBeenCalled()
 
     })
@@ -56,14 +57,14 @@ describe('urlsCreatedByUserController tests-', function() {
     it('should return status 401 for invalid token', async function() {
         reqObj.get.mockReturnValueOnce('Bearer fakeToken')
         validateTokenMock.mockReturnValueOnce(null)
-        await urlsCreatedByUserController(reqObj as any,resObj as any, nextFunctionMock as any)
+        await editMiniUrlController(reqObj as any,resObj as any, nextFunctionMock as any)
         expect(resObj.status).toHaveBeenCalledWith(401)
 
     })
 
     it('should return status 400 for missing token', async function() {
         reqObj.get.mockReturnValueOnce(null)
-        await urlsCreatedByUserController(reqObj as any,resObj as any, nextFunctionMock as any)
+        await editMiniUrlController(reqObj as any,resObj as any, nextFunctionMock as any)
         expect(resObj.status).toHaveBeenCalledWith(400)
 
     })

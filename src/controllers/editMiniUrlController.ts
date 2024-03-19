@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
+import { editMiniUrlRecord } from '../lib/database'
 import { logger } from '../clients/loggerClient'
 import { validateToken } from '../lib/authToken'
-import { getUrlsCreatedByUsers } from '../lib/database'
+import xss from 'xss'
 
-export const urlsCreatedByUserController = async (req: Request, res: Response, next: NextFunction) => {
+export const editMiniUrlController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const authHeader: string = req.get('Authorization') as string
         if (!authHeader) {
@@ -18,10 +19,14 @@ export const urlsCreatedByUserController = async (req: Request, res: Response, n
                 msg: 'Invalid Token!'
             })
         }
-        const urls = await getUrlsCreatedByUsers(createdBy)
+        const { miniUrl, newMiniUrl } = req.body
+        const cleanMiniUrl = xss(miniUrl)
+        const cleanNewMiniUrl = xss(newMiniUrl)
 
-        return res.status(200).send({
-            urls: urls
+        const urlRecord = await editMiniUrlRecord(createdBy, cleanMiniUrl, cleanNewMiniUrl)
+
+        res.status(200).send({
+            updatedUrlRecord: urlRecord
         })
     } catch (error) {
         logger.error(error)
