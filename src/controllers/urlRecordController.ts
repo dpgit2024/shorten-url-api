@@ -6,18 +6,18 @@ export const urlRecordController = async (req: Request, res: Response) => {
     try {
         const urlRecord = await getUrlRecord('miniUrl', req.query.miniUrl as string)
         logger.info(urlRecord)
-        if(urlRecord) {
-            return  res.status(200).send({
-                    urlRecord: urlRecord,
-                    msg: 'Found!'
-                })
+        if (urlRecord) {
+            return res.status(200).send({
+                urlRecord: urlRecord,
+                msg: 'Found!'
+            })
         }
-        return  res.status(404).send({
+        return res.status(404).send({
             msg: 'Record not found!'
-        }) 
+        })
     } catch (error) {
         logger.error(error)
         throw new Error('Error in urlRecordController')
     }
-    
+
 }

@@ -9,13 +9,13 @@ export const loginController = async (req: Request, res: Response, next: NextFun
     try {
         const { userName, password } = req.body
         const record = await getUserRecord('userName', userName)
-        if(!record) {
-            return res.status(401).send({msg: config.MSG.AUTH_ERROR})
+        if (!record) {
+            return res.status(401).send({ msg: config.MSG.AUTH_ERROR })
         }
 
         const isMatch = await comparePassword(password, record.password as string)
-        if(!isMatch) {
-            return res.status(401).send({msg: config.MSG.AUTH_ERROR})
+        if (!isMatch) {
+            return res.status(401).send({ msg: config.MSG.AUTH_ERROR })
         }
 
         const accessToken = generateToken(record.userName as string)
@@ -24,11 +24,11 @@ export const loginController = async (req: Request, res: Response, next: NextFun
             msg: config.MSG.AUTH_SUCCESS,
             accessToken: accessToken,
             user: record
-        }) 
+        })
     } catch (error) {
         const msg = 'Error in loginController'
         logger.error(msg, error)
         return next(error)
     }
-    
+
 }

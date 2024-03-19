@@ -8,5 +8,5 @@ export const shortenUrlScema = {
     body: Joi.object({
         url: Joi.string().trim().required()
     })
-    .custom(urlValueValidator)
+        .custom(urlValueValidator)
 }
