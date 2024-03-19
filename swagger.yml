@@ -157,6 +157,36 @@ paths:
                     accessToken:
                       type: string
                       example: fakeTokenasdlkj
+                    user:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 65f5eb134f4dbaf667be8f89
+                        userName:
+                          type: string
+                          example: fakeeUser
+                        firstName:
+                          type: string
+                          example: fakeFirst
+                        lastName:
+                          type: string
+                          example: fakeLast
+                        email:
+                          type: string
+                          example: fake@fake.com
+                        createdAt:
+                          type: string
+                          example: "2024-03-16T18:55:15.543Z"
+                        updatedAt:
+                          type: string
+                          example: "2024-03-18T21:43:35.354Z"
+                        __v:
+                          type: number
+                          example: 0
+                        lastLoginAt:
+                          type: string
+                          example: "2024-03-18T21:42:42.198Z"
           '400':
               description: Validation Error 
           '429':
