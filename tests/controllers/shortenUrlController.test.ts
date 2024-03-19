@@ -1,6 +1,7 @@
 import { validateToken } from '../../src/lib/authToken'
 import { shortenUrlController } from '../../src/controllers/shortenUrlController'
 import { shortenUrl } from '../../src/lib/shortenUrl'
+import xss from 'xss'
 
 jest.mock('express')
 jest.mock('../../src/lib/shortenUrl')
@@ -8,6 +9,7 @@ jest.mock('../../src/clients/loggerClient')
 jest.mock('../../config/config')
 jest.mock('mongoose')
 jest.mock('../../src/lib/authToken')
+jest.mock('xss')
 
 const shortenUrlMock = shortenUrl as jest.Mock
 const validateTokenMock = validateToken as jest.Mock
@@ -27,8 +29,12 @@ const resObj = {
 }
 
 const nextFunctionMock = jest.fn()
+const xssMock = xss as jest.Mock
 
 describe('shortenUrlController tests-', function() {
+    beforeEach(() => {
+        xssMock.mockReturnValueOnce(reqObj.body.url)
+    })
     it('should call shortenUrl lib function', async function() {
         await shortenUrlController(reqObj as any,resObj as any, nextFunctionMock as any)
         expect(shortenUrlMock).toHaveBeenCalled()

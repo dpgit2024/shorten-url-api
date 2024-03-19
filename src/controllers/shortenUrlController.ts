@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { shortenUrl } from '../lib/shortenUrl'
 import { logger } from '../clients/loggerClient'
 import { validateToken } from '../lib/authToken'
+import xss from 'xss'
 
 export const shortenUrlController = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -16,7 +17,9 @@ export const shortenUrlController = async (req: Request, res: Response, next: Ne
                 })
             }
         }
-        const shortUrl = await shortenUrl(req.body.url, createdBy)
+
+        const cleanUrl = xss(req.body.url)
+        const shortUrl = await shortenUrl(cleanUrl, createdBy)
         
         res.status(200).send({
             shortUrlId: shortUrl
