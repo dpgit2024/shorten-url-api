@@ -6,6 +6,6 @@ export const editMiniUrlSchema = {
     }).unknown(true),
     body: Joi.object({
         miniUrl: Joi.string().min(2).max(10).trim().required(),
-        newMiniUrl: Joi.string().min(2).max(10).trim().required()
+        newMiniUrl: Joi.string().alphanum().min(2).max(10).trim().required()
     })
 }
