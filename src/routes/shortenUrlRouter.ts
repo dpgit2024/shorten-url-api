@@ -5,8 +5,8 @@ import { validate } from 'express-validation'
 
 const router = Router()
 
-router.post('/url-record', 
-validate(shortenUrlScema),
-shortenUrlController)
+router.post('/url-record',
+    validate(shortenUrlScema),
+    shortenUrlController)
 
 export default router

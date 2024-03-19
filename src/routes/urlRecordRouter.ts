@@ -5,7 +5,7 @@ import { validate } from 'express-validation'
 
 const router = Router()
 
-router.get('/url-record', 
+router.get('/url-record',
     validate(urlRecordScema),
     urlRecordController)
 

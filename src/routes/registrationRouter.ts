@@ -4,7 +4,7 @@ import { validate } from 'express-validation'
 import { registrationValidationSchema } from '../validators/registrationValidator'
 const router = Router()
 
-router.post('/registration', 
+router.post('/registration',
         validate(registrationValidationSchema),
         registrationController)
 
