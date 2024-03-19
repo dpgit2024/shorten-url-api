@@ -113,6 +113,46 @@ paths:
             description: Too many requests - Rate Limiter
         '500':
           description: Internal Server Error. 
+  /urls:
+    get:
+      tags:
+        - url
+      summary: get urls created by user
+      operationId: urlsCreatedByUser
+      parameters:
+        - name: x-correlation-id
+          in: header
+          description: correlationId for logging and traceability
+          required: true
+          schema:
+              type: string
+              example: random-dsljqlksadas-uuid
+        - name: Authorization
+          in: header
+          description: JWT Bearer Auth token generated at login
+          required: true
+          schema:
+              type: string
+              example: Bearer fakeToken
+      responses:
+        '200':
+         description: Successful operation.
+         content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  urls:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UrlRecordResponse'
+
+        '429':
+          description: Too many requests - Rate limiter
+        '500':
+          description: Internal Server Error.
+
+
   /login:
       post:
         tags:
