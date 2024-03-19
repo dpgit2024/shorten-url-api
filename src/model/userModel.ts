@@ -1,4 +1,4 @@
-import { model, Schema} from "mongoose"
+import { model, Schema } from "mongoose"
 
 const userSchema = new Schema({
     userName: {
@@ -15,6 +15,6 @@ const userSchema = new Schema({
     },
     password: String,
     lastLoginAt: Date
-}, {timestamps: true})
+}, { timestamps: true })
 
 export const UserModel = model('users', userSchema)
