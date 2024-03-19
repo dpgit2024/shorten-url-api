@@ -4,25 +4,25 @@ import { IUserRecord } from '../../@types/IUserRecord'
 import { UserModel } from '../model/userModel'
 import { hashPassword } from './password'
 
-export const createUrlRecord = async function(record: IUrlRecord) {
+export const createUrlRecord = async function (record: IUrlRecord) {
     const urlModel = new MiniUrlModel(record)
     await urlModel.save()
 }
 
-export const getUrlRecord = async function(attribute = 'miniUrl', value: string) {
-    
-    const record = await MiniUrlModel.findOne({[attribute]: value})
-    if(record) {
+export const getUrlRecord = async function (attribute = 'miniUrl', value: string) {
+
+    const record = await MiniUrlModel.findOne({ [attribute]: value })
+    if (record) {
         record.hits += 1
         await record.save()
     }
-    
+
     return record
 }
 
-export const createUserRecord = async function(record: IUserRecord) {
-    const existingRecord = await UserModel.find({ $or: [ {'userName': record.userName}, {'email': record.email}]} )
-    if(existingRecord?.length) {
+export const createUserRecord = async function (record: IUserRecord) {
+    const existingRecord = await UserModel.find({ $or: [{ 'userName': record.userName }, { 'email': record.email }] })
+    if (existingRecord?.length) {
         return null
     }
     record.password = await hashPassword(record.password)
@@ -31,9 +31,9 @@ export const createUserRecord = async function(record: IUserRecord) {
     return userModel
 }
 
-export const getUserRecord = async function(attribute = 'userName', value: string) {
-    const record = await UserModel.findOne({[attribute]: value})
-    if(record) {
+export const getUserRecord = async function (attribute = 'userName', value: string) {
+    const record = await UserModel.findOne({ [attribute]: value })
+    if (record) {
         const lastLoginAt = record.lastLoginAt
         record.lastLoginAt = new Date()
         await record.save()
@@ -42,9 +42,9 @@ export const getUserRecord = async function(attribute = 'userName', value: strin
     return record
 }
 
-export const getUrlsCreatedByUsers = async function(createdBy: string) {
-    const records = await MiniUrlModel.find({createdBy: createdBy})
-    if(records?.length) {
+export const getUrlsCreatedByUsers = async function (createdBy: string) {
+    const records = await MiniUrlModel.find({ createdBy: createdBy })
+    if (records?.length) {
         return records
     }
     return null
