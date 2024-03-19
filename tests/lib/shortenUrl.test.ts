@@ -11,20 +11,22 @@ const generateMiniUrlIdMock = generateMiniUrlId as jest.Mock
 
 const originalUrlMock = 'https://google.com/hjkhkjh'
 const shortUrlIdMock = 'abcd1' 
+const createdByMock = 'fakeUser'
 
 describe('shortenUrl lib tests -', function() {
     it('should call generateMiniUrlId', async function() {
         generateMiniUrlIdMock.mockReturnValueOnce(shortUrlIdMock)
-        await shortenUrl(originalUrlMock)
+        await shortenUrl(originalUrlMock, createdByMock)
         expect(generateMiniUrlIdMock).toHaveBeenCalled()
     })
 
     it('should call createUrlRecord', async function() {
         generateMiniUrlIdMock.mockReturnValueOnce(shortUrlIdMock)
-        await shortenUrl(originalUrlMock)
+        await shortenUrl(originalUrlMock, createdByMock)
         expect(createUrlRecordMock).toHaveBeenCalledWith({
             originalUrl: originalUrlMock,
-            miniUrl: shortUrlIdMock
+            miniUrl: shortUrlIdMock,
+            createdBy: createdByMock
         })
     })
 
@@ -34,13 +36,13 @@ describe('shortenUrl lib tests -', function() {
         const originalUrlMock = 'https://google.com/hjkhkjh'
         // const shortUrlIdMock = 'abcd1' 
         expect(async () => {
-            await shortenUrl(originalUrlMock)
+            await shortenUrl(originalUrlMock, undefined)
         }).rejects.toThrow()
     })
 
     it('should call createUrlRecord', async function() {
         generateMiniUrlIdMock.mockReturnValueOnce(shortUrlIdMock)
-        const miniUrlId = await shortenUrl(originalUrlMock)
+        const miniUrlId = await shortenUrl(originalUrlMock, createdByMock)
         expect(miniUrlId).toBe(shortUrlIdMock)
     })
 })

@@ -4,12 +4,13 @@ import { generateMiniUrlId } from '../utils/helpers'
 import { createUrlRecord } from './database'
 import { logger } from '../clients/loggerClient'
 
-export const shortenUrl = async function (originalUrl: string): Promise<string> {
+export const shortenUrl = async function (originalUrl: string, createdBy: string | undefined): Promise<string> {
     try {
         const miniUrlId = generateMiniUrlId()
         const urlRecord: IUrlRecord = {
             originalUrl: originalUrl,
-            miniUrl: miniUrlId
+            miniUrl: miniUrlId,
+            createdBy: createdBy
         }
         await createUrlRecord(urlRecord)
         return miniUrlId
