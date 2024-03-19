@@ -24,8 +24,13 @@ export const editMiniUrlController = async (req: Request, res: Response, next: N
         const cleanNewMiniUrl = xss(newMiniUrl)
 
         const urlRecord = await editMiniUrlRecord(createdBy, cleanMiniUrl, cleanNewMiniUrl)
+        if (!urlRecord) {
+            return res.status(400).send({
+                msg: 'Update failed! Please provide a different miniUrl.'
+            })
+        }
 
-        res.status(200).send({
+        return res.status(200).send({
             updatedUrlRecord: urlRecord
         })
     } catch (error) {

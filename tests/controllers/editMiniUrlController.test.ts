@@ -28,15 +28,22 @@ const resObj = {
 }
 
 const nextFunctionMock = jest.fn()
+const mockUrlDBRecord = {
+    originalUrl: 'https://www.google.com/lfsdlkjda',
+    miniUrl: 'abdc1',
+    hits: 0,
+    save: jest.fn()
+}
 
-describe('editMiniUrlRecordMock tests-', function() {
+describe('editMiniUrlController tests-', function() {
     beforeEach(() => {
       
     })
 
-    it('should call getUrlsCreatedByUsersMock lib function', async function() {
+    it('should call editMiniUrlRecord lib function', async function() {
         reqObj.get.mockReturnValueOnce('Bearer fakeToken')
         validateTokenMock.mockResolvedValueOnce('fakeUser')
+        editMiniUrlRecordMock.mockResolvedValueOnce(mockUrlDBRecord)
         await editMiniUrlController(reqObj as any,resObj as any, nextFunctionMock as any)
         expect(editMiniUrlRecordMock).toHaveBeenCalled()
         expect(resObj.status).toHaveBeenCalledWith(200)
@@ -69,5 +76,13 @@ describe('editMiniUrlRecordMock tests-', function() {
 
     })
 
+    it('should return status 400 for miniUrl record issues', async function() {
+        reqObj.get.mockReturnValueOnce('Bearer fakeToken')
+        validateTokenMock.mockResolvedValueOnce('fakeUser')
+        await editMiniUrlController(reqObj as any,resObj as any, nextFunctionMock as any)
+        expect(editMiniUrlRecordMock).toHaveBeenCalled()
+        expect(resObj.status).toHaveBeenCalledWith(400)
+
+    })
     
 })
