@@ -1,7 +1,7 @@
 ## Shorten URL Microservice
 
 
-A REST API service that takes a full valid URL and returns a miniURL id. This miniURL id can be used by a frontend to redirect it to the actual website.
+A REST API service that takes a full valid URL and returns a miniURL id like aRnwQ. This miniURL id can be used by a frontend to redirect it to the actual website.
 
 e.g. URL at the frontend side could look like ```http://localhost:3000/aRnwQ``` which may translate to  
 
