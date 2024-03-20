@@ -1,6 +1,6 @@
 import { MiniUrlModel } from '../../src/model/miniUrlModel'
 import { UserModel } from '../../src/model/userModel'
-import { createUrlRecord, getUrlRecord, createUserRecord, getUserRecord, getUrlsCreatedByUsers, editMiniUrlRecord } from '../../src/lib/database'
+import { createUrlRecord, getUrlRecord, createUserRecord, getUserRecord, getUrlsCreatedByUsers, editMiniUrlRecord, deleteUrlRecord } from '../../src/lib/database'
 import { hashPassword } from '../../src/lib/password'
 
 const mockUrlRecord = {
@@ -42,6 +42,7 @@ const mockSaveUser = new UserModel().save as jest.Mock
 const findOneMockUser = UserModel.findOne as jest.Mock
 const findMockUser = UserModel.find as jest.Mock
 const findMockUrl = MiniUrlModel.find as jest.Mock
+const findOneAndDeleteUrlMock = MiniUrlModel.findOneAndDelete as jest.Mock
 
 describe('database.ts -', function() {
     beforeEach(() => {
@@ -159,6 +160,20 @@ describe('database.ts -', function() {
         it('should return null when no record', async function() {
             findOneMock.mockResolvedValue(mockUrlDBRecord)
             const value = await editMiniUrlRecord('fakeUser', 'abcd1', 'abcd2')
+            expect(value).toBeNull()
+        })
+    })
+
+    describe('deleteUrlRecord tests -', function() {
+        it('should call findOneAndDelete function', async function() {
+            findOneAndDeleteUrlMock.mockResolvedValueOnce(mockUrlDBRecord)
+            await deleteUrlRecord('fakeUser', 'abcd1')
+            expect(findOneAndDeleteUrlMock).toHaveBeenCalled()
+        })
+
+        it('should return null when no record', async function() {
+            findOneAndDeleteUrlMock.mockResolvedValueOnce(null)
+            const value = await deleteUrlRecord('fakeUser', 'abcd1')
             expect(value).toBeNull()
         })
     })

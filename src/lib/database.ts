@@ -64,3 +64,7 @@ export const editMiniUrlRecord = async function (createdBy: string, miniUrl: str
     await record.save()
     return record
 }
+
+export const deleteUrlRecord = async function (createdBy: string, miniUrl: string) {
+    return await MiniUrlModel.findOneAndDelete({ createdBy: createdBy, miniUrl: miniUrl })
+}
