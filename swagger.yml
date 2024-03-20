@@ -249,6 +249,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/UrlRecordResponse'
+        '400':
+          description: Validation Error
 
         '429':
           description: Too many requests - Rate limiter
