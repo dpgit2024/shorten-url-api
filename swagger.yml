@@ -169,7 +169,53 @@ paths:
             description: Too many requests - Rate Limiter
         '500':
           description: Internal Server Error. 
-
+    delete:
+      tags:
+        - url
+      summary: delete a MiniUrl
+      description: Accept a miniUrl to delete an existing miniUrl createdBy the user
+      operationId: deleteMiniUrl
+      parameters:
+        - name: x-correlation-id
+          in: header
+          description: correlationId for logging and traceability
+          required: true
+          schema:
+              type: string
+              example: random-dsljqlksadas-uuid
+        - name: Authorization
+          in: header
+          description: JWT Bearer Auth token generated at login
+          required: true
+          schema:
+              type: string
+              example: Bearer fakeToken
+        - name: miniUrl
+          in: path
+          description: MiniURL created using the url shortener
+          required: true
+          schema:
+              type: string
+              example: abcd1
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Delete successful!
+        '404':
+          description: Not Found.
+        '400':
+          description: Validation Error
+        '429':
+            description: Too many requests - Rate Limiter
+        '500':
+          description: Internal Server Error. 
   /urls:
     get:
       tags:
