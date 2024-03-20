@@ -3,9 +3,9 @@
 
 A REST API service that takes a full valid URL and returns a miniURL id like aRnwQ. This miniURL id can be used by a frontend to redirect it to the actual website.
 
-e.g. URL at the frontend side could look like ```http://localhost:3000/aRnwQ``` which may translate to  
+e.g. URL at the frontend side could look like ```http://localhost:3000/aRnwQ``` which may redirect to  
 
-```https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiV0rP8o_-EAxViF1kFHZr_DUUQFnoECBUQAQ&url=https%3A%2F%2Fdev.to%2Fthawkin3%2Fwhat-i-look-for-when-hiring-senior-software-engineers-4a6j&usg=AOvVaw16L2BhLUVxPWZfA8g8pehL&opi=89978449``` when accessed.
+```https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiV0rP8o_-EAxViF1kFHZr_DUUQFnoECBUQAQ&url=https%3A%2F%2Fdev.to%2Fthawkin3%2Fwhat-i-look-for-when-hiring-senior-software-engineers-4a6j&usg=AOvVaw16L2BhLUVxPWZfA8g8pehL&opi=89978449``` when accessed. Frontend will call this microservice to retrieve the actual URL so that it can redirect to the original website.
 
 The endpoints in this API enable creation of convenient short URLs and also has support for profile/account management.
 This project is developed using Node.js, TypeScript.js, Express.js, MongoDB, Docker and Jest for unit testing. 
