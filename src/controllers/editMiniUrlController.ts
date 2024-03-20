@@ -31,7 +31,8 @@ export const editMiniUrlController = async (req: Request, res: Response, next: N
         }
 
         return res.status(200).send({
-            updatedUrlRecord: urlRecord
+            urlRecord: urlRecord,
+            msg: 'Success!'
         })
     } catch (error) {
         logger.error(error)

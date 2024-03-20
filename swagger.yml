@@ -119,6 +119,57 @@ paths:
             description: Too many requests - Rate Limiter
         '500':
           description: Internal Server Error. 
+    put:
+      tags:
+        - url
+      summary: update a MiniUrl
+      description: Accept a newMiniUrl to update an existing miniUrl. Return updated URL record as response.
+      operationId: editMiniUrl
+      parameters:
+        - name: x-correlation-id
+          in: header
+          description: correlationId for logging and traceability
+          required: true
+          schema:
+              type: string
+              example: random-dsljqlksadas-uuid
+        - name: Authorization
+          in: header
+          description: JWT Bearer Auth token generated at login
+          required: true
+          schema:
+              type: string
+              example: Bearer fakeToken
+      requestBody:
+          content:
+            application/json:
+              schema:
+                required:
+                  - url
+                type: object
+                properties:
+                  miniUrl:
+                    type: string
+                    example: sf2Fz
+                  newMiniUrl:
+                    type: string
+                    example: abcd1
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/UrlRecordResponse'
+        '404':
+          description: Not Found.
+        '400':
+          description: Validation Error
+        '429':
+            description: Too many requests - Rate Limiter
+        '500':
+          description: Internal Server Error. 
+
   /urls:
     get:
       tags:
@@ -284,7 +335,7 @@ components:
     UrlRecordResponse:
       type: object
       properties:
-        UrlRecord:
+        urlRecord:
           type: object
           properties:
             _id:
@@ -310,7 +361,7 @@ components:
               example: 0
         msg:
           type: string
-          example: Found!
+          example: Success!
     RegistrationBody:
         required:
                 - firstName
