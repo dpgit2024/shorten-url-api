@@ -14,6 +14,7 @@ import YAML from 'yamljs'
 import loginRouter from './routes/loginRouter'
 import urlsRouter from './routes/urlsRouter'
 import editMiniUrlRouter from './routes/editMiniUrlRouter'
+import deleteUrlRecordRouter from './routes/deleteUrlRecordRouter'
 
 const path = require('path')
 const swaggerDocument = YAML.load(path.resolve(__dirname, '../swagger.yml'))
@@ -41,6 +42,7 @@ app.use('/api/v1', registrationRouter)
 app.use('/api/v1/', loginRouter)
 app.use('/api/v1/', urlsRouter)
 app.use('/api/v1/', editMiniUrlRouter)
+app.use('/api/v1/', deleteUrlRecordRouter)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof ValidationError) {
         logger.error(err)
